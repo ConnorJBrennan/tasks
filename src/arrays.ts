@@ -67,7 +67,14 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    let newArray: string[] = [];
+    newArray = messages.map((message: string): string =>
+        message.endsWith("!") ? message.toUpperCase() : message,
+    );
+    newArray = newArray.filter(
+        (message: string): boolean => !message.endsWith("?"),
+    );
+    return newArray;
 };
 
 /**
@@ -75,7 +82,11 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    let shortWords: number = 0;
+    shortWords = words.filter(
+        (word: string): boolean => word.length < 4,
+    ).length;
+    return shortWords;
 }
 
 /**
@@ -84,6 +95,13 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
+    let newArray: string[] = [];
+    newArray = colors.filter((color: string): boolean => color !== "red");
+    newArray = newArray.filter((color: string): boolean => color !== "blue");
+    newArray = newArray.filter((color: string): boolean => color !== "green");
+    if (newArray.length === 0) {
+        return true;
+    }
     return false;
 }
 
@@ -95,7 +113,18 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    let sum: number = 0;
+    let stringSum: string = "";
+    sum = addends.reduce((total: number, num: number) => total + num, 0);
+    stringSum = addends.reduce(
+        (total: string, num: number) => total + num.toString() + "+",
+        "",
+    );
+    stringSum = stringSum.slice(0, -1);
+    if (stringSum === "") {
+        stringSum = "0";
+    }
+    return `${sum}=` + stringSum;
 }
 
 /**
@@ -108,5 +137,23 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+    let firstNegative: number;
+    let newArray: number[] = [...values];
+    firstNegative = values.findIndex((value: number): boolean => value < 0);
+    if (firstNegative === -1) {
+        let sum: number = values.reduce(
+            (total: number, num: number) => total + num,
+            0,
+        );
+        newArray.splice(newArray.length, 0, sum);
+        return newArray;
+    }
+    let beforeNegative: number[] = [...values];
+    beforeNegative.splice(firstNegative, values.length + 1 - firstNegative, 0);
+    let sum: number = beforeNegative.reduce(
+        (total: number, num: number) => total + num,
+        0,
+    );
+    newArray.splice(firstNegative + 1, 0, sum);
+    return newArray;
 }
