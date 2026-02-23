@@ -1,0 +1,159 @@
+/**
+ * Consume an array of numbers, and return a new array containing
+ * JUST the first and last number. If there are no elements, return
+ * an empty array. If there is one element, the resulting list should
+ * the number twice.
+ */
+export function bookEndList(numbers: number[]): number[] {
+    if (numbers.length === 0) {
+        return [];
+    }
+    if (numbers.length === 1) {
+        let newArray: number[] = [];
+        newArray.push(numbers[0]);
+        newArray.push(numbers[0]);
+        return newArray;
+    }
+    let newArray: number[] = [];
+    newArray.push(numbers[0]);
+    newArray.push(numbers[numbers.length - 1]);
+    return newArray;
+}
+
+/**
+ * Consume an array of numbers, and return a new array where each
+ * number has been tripled (multiplied by 3).
+ */
+export function tripleNumbers(numbers: number[]): number[] {
+    let newArray: number[] = [...numbers];
+    newArray = newArray.map((digit: number): number => digit * 3);
+    return newArray;
+}
+
+/**
+ * Consume an array of strings and convert them to integers. If
+ * the number cannot be parsed as an integer, convert it to 0 instead.
+ */
+export function stringsToIntegers(numbers: string[]): number[] {
+    let newArray: number[] = [];
+    newArray = numbers.map((digit: string): number => parseInt(digit));
+    newArray = newArray.map((digit: number): number =>
+        isNaN(digit) ? (digit = 0) : digit,
+    );
+    return newArray;
+}
+
+/**
+ * Consume an array of strings and return them as numbers. Note that
+ * the strings MAY have "$" symbols at the beginning, in which case
+ * those should be removed. If the result cannot be parsed as an integer,
+ * convert it to 0 instead.
+ */
+// Remember, you can write functions as lambdas too! They work exactly the same.
+export const removeDollars = (amounts: string[]): number[] => {
+    let newArray: string[] = [];
+    newArray = amounts.map((digit: string): string => digit.replace("$", ""));
+    let newArray2: number[] = [];
+    newArray2 = newArray.map((digit: string): number => parseInt(digit));
+    newArray2 = newArray2.map((digit: number): number =>
+        isNaN(digit) ? (digit = 0) : digit,
+    );
+    return newArray2;
+};
+
+/**
+ * Consume an array of messages and return a new list of the messages. However, any
+ * string that ends in "!" should be made uppercase. Also, remove any strings that end
+ * in question marks ("?").
+ */
+export const shoutIfExclaiming = (messages: string[]): string[] => {
+    let newArray: string[] = [];
+    newArray = messages.map((message: string): string =>
+        message.endsWith("!") ? message.toUpperCase() : message,
+    );
+    newArray = newArray.filter(
+        (message: string): boolean => !message.endsWith("?"),
+    );
+    return newArray;
+};
+
+/**
+ * Consumes an array of words and returns the number of words that are LESS THAN
+ * 4 letters long.
+ */
+export function countShortWords(words: string[]): number {
+    let shortWords: number = 0;
+    shortWords = words.filter(
+        (word: string): boolean => word.length < 4,
+    ).length;
+    return shortWords;
+}
+
+/**
+ * Consumes an array of colors (e.g., 'red', 'purple') and returns true if ALL
+ * the colors are either 'red', 'blue', or 'green'. If an empty list is given,
+ * then return true.
+ */
+export function allRGB(colors: string[]): boolean {
+    let newArray: string[] = [];
+    newArray = colors.filter((color: string): boolean => color !== "red");
+    newArray = newArray.filter((color: string): boolean => color !== "blue");
+    newArray = newArray.filter((color: string): boolean => color !== "green");
+    if (newArray.length === 0) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Consumes an array of numbers, and produces a string representation of the
+ * numbers being added together along with their actual sum.
+ *
+ * For instance, the array [1, 2, 3] would become "6=1+2+3".
+ * And the array [] would become "0=0".
+ */
+export function makeMath(addends: number[]): string {
+    let sum: number = 0;
+    let stringSum: string = "";
+    sum = addends.reduce((total: number, num: number) => total + num, 0);
+    stringSum = addends.reduce(
+        (total: string, num: number) => total + num.toString() + "+",
+        "",
+    );
+    stringSum = stringSum.slice(0, -1);
+    if (stringSum === "") {
+        stringSum = "0";
+    }
+    return `${sum}=` + stringSum;
+}
+
+/**
+ * Consumes an array of numbers and produces a new array of the same numbers,
+ * with one difference. After the FIRST negative number, insert the sum of all
+ * previous numbers in the list. If there are no negative numbers, then append
+ * the sum to the list.
+ *
+ * For instance, the array [1, 9, -5, 7] would become [1, 9, -5, 10, 7]
+ * And the array [1, 9, 7] would become [1, 9, 7, 17]
+ */
+export function injectPositive(values: number[]): number[] {
+    let firstNegative: number;
+    let newArray: number[] = [...values];
+    firstNegative = values.findIndex((value: number): boolean => value < 0);
+    if (firstNegative === -1) {
+        let sum: number = values.reduce(
+            (total: number, num: number) => total + num,
+            0,
+        );
+        newArray.splice(newArray.length, 0, sum);
+        return newArray;
+    }
+    let beforeNegative: number[] = [...values];
+    beforeNegative.splice(firstNegative, values.length + 1 - firstNegative, 0);
+    let sum: number = beforeNegative.reduce(
+        (total: number, num: number) => total + num,
+        0,
+    );
+    newArray.splice(firstNegative + 1, 0, sum);
+    return newArray;
+}
