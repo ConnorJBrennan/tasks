@@ -234,16 +234,20 @@ What shape can you make with one line?
 
     ///////////////////////////////////
     // addOption
+<<<<<<< HEAD
     test("(3 pts) Testing the addOption function", () => {
+=======
+    test("Testing the addOption function", () => {
         expect(addOption(SHAPE_QUESTION, "heptagon")).toEqual({
-            id: 9,
-            name: "Shapes",
-            body: "What shape can you make with one line?",
             type: "multiple_choice_question",
             options: ["square", "triangle", "circle", "heptagon"],
             expected: "circle",
             points: 2,
+<<<<<<< HEAD
             published: false,
+=======
+            published: false
+>>>>>>> upstream/task-nested
         });
         expect(addOption(COLOR_QUESTION, "squiggles")).toEqual({
             id: 5,
@@ -253,20 +257,33 @@ What shape can you make with one line?
             options: ["red", "apple", "firetruck", "squiggles"],
             expected: "red",
             points: 1,
+<<<<<<< HEAD
             published: true,
+=======
+            published: true
+>>>>>>> upstream/task-nested
         });
     });
 
     ///////////////////////////////////
     // mergeQuestion
+<<<<<<< HEAD
     test("(3 pts) Testing the mergeQuestion function", () => {
+=======
+    test("Testing the mergeQuestion function", () => {
+>>>>>>> upstream/task-nested
         expect(
             mergeQuestion(
                 192,
                 "More Points Addition",
                 ADDITION_QUESTION,
+<<<<<<< HEAD
                 SHAPE_QUESTION,
             ),
+=======
+                SHAPE_QUESTION
+            )
+>>>>>>> upstream/task-nested
         ).toEqual({
             id: 192,
             name: "More Points Addition",
@@ -275,7 +292,11 @@ What shape can you make with one line?
             options: [],
             expected: "4",
             points: 2,
+<<<<<<< HEAD
             published: false,
+=======
+            published: false
+>>>>>>> upstream/task-nested
         });
 
         expect(
@@ -283,8 +304,13 @@ What shape can you make with one line?
                 99,
                 "Less Points Shape",
                 SHAPE_QUESTION,
+<<<<<<< HEAD
                 ADDITION_QUESTION,
             ),
+=======
+                ADDITION_QUESTION
+            )
+>>>>>>> upstream/task-nested
         ).toEqual({
             id: 99,
             name: "Less Points Shape",
@@ -293,7 +319,11 @@ What shape can you make with one line?
             options: ["square", "triangle", "circle"],
             expected: "circle",
             points: 1,
+<<<<<<< HEAD
             published: false,
+=======
+            published: false
+>>>>>>> upstream/task-nested
         });
     });
 });
