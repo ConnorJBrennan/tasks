@@ -313,12 +313,15 @@ export function duplicateQuestionInArray(
     newId: number,
 ): Question[] {
     let newQuestions: Question[] = [...questions];
-    const targetQuestion: Question = questions.find(
+    const targetQuestion = questions.find(
         (question: Question): boolean => question.id === targetId,
     );
     const targetQuestionIndex: number = questions.findIndex(
         (question: Question): boolean => question.id === targetId,
     );
+    if (targetQuestion === undefined) {
+        return newQuestions;
+    }
     let duplicate: Question = duplicateQuestion(newId, targetQuestion);
     newQuestions.splice(targetQuestionIndex + 1, 0, duplicate);
     return newQuestions;
